@@ -2,9 +2,9 @@
 Methodology to calculate impact of aging population on activity forecasts
 
 # test connections
-JPRStudio - T 
+JPRStudio - F 
 
-JPVSCode - T
+JPVSCode - F
 
 AS - 
 
