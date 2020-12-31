@@ -1,8 +1,8 @@
 ################################################################################
 ## Title: TestData
-## Last Update: 01/10/2020
-## Version: 1.0
-## Developer Contact: analytics-unit-internal@nhsx.nhs.uk
+## Last Update: 31/12/2020
+## Version: 2.0
+## Developer Contact: analytics-unit@nhsx.nhs.uk
 ################################################################################
 
 ## Generate Fake SUS and GP Registration data
@@ -64,6 +64,9 @@ dfSUSFake$Activities[dfSUSFake$Treatment == "MHLD"] <- (-0.0002*dfSUSFake$Age[df
                                                         13.003*dfSUSFake$Age[dfSUSFake$Treatment == "MHLD"]**2 +
                                                         573.64*dfSUSFake$Age[dfSUSFake$Treatment == "MHLD"] -
                                                         1056.7)*(1+dfSUSFake$Year[dfSUSFake$Treatment == "MHLD"]-2010)*0.06
+
+## Set any generated negatives to zero
+dfSUSFake$Activities[dfSUSFake$Activities < 0 ] <- 1
   
 ## Assume all costs £100 per activity
 dfSUSFake$Cost <- dfSUSFake$Activities*100

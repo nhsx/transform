@@ -1,22 +1,11 @@
 ################################################################################
-## Title: Componenets of Change
-## Last Update: 01/10/2020
-## Version: 1.0
-## Developer Contact: analytics-unit-internal@nhsx.nhs.uk
+## Title: Components of Change
+## Last Update: 31/12/2020
+## Version: 2.0
+## Developer Contact: analytics-unit@nhsx.nhs.uk
 ################################################################################
 
 ## --------------------------- Population variant model ------------------------
-lastForecastYear = 2049
-maleWeight = 105
-femaleWeight = 100
-fertScalingStartYear = 2018
-fertScalingEndYear = 2040
-mortScalingStartYear = 2018
-migrationPopScale = data.frame(Type = c("Principal", "Low", "High"), Pop = c(144000, 81500, 206500)) %>% mutate(rate = Pop / Pop[1])
-migrationScalingStartYear = 2018
-migrationScalingEndYear = 2022
-
-options = c("Principal", "Low", "High")
 CoC = data.frame()
 
 for(ff in 1:length(options)){
@@ -94,7 +83,7 @@ for(ff in 1:length(options)){
         left_join(ons_migration, by = c("sex", "age", "year"))
       
       lastYearBirths = max(as.numeric(ons_maternities$year))
-      yearsToCalc = (lastYearBirths + 1):lastForecastYear
+      yearsToCalc = (lastYearBirths + 1):lastOutputYear
       
       for(yy in 1:length(yearsToCalc)){
         estimatedBirths = ons_CoC %>%
@@ -165,9 +154,9 @@ for(ff in 1:length(options)){
       
       ons_CoC = ons_CoC %>%
         filter(age >= 0) %>%
-        mutate(FertilityVariant = fertilityVariant,
-               MortalityVariant = mortalityVariant,
-               MigrationVariant = migrationVariant)
+        mutate(fertilityVariant = fertilityVariant,
+               mortalityVariant = mortalityVariant,
+               migrationVariant = migrationVariant)
       
       CoC = rbind.data.frame(CoC, ons_CoC, stringsAsFactors = F)
     }
